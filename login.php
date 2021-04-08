@@ -1,5 +1,6 @@
 <?php
 require_once ('config.php'); // For storing username and password.
+
 session_start();
 ?>
 
