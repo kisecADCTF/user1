@@ -13,7 +13,7 @@ $board_ID = $_GET['board_ID'];
 $board_ID = addslashes($board_ID);
 	
 $query = "DELETE FROM rule WHERE (user_ID = '$user_ID' and board_ID = '$board_ID')";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $last_page = $_SERVER["HTTP_REFERER"];
 header("location:$last_page");

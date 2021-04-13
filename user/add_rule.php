@@ -17,7 +17,7 @@ $permission = $_POST['permission'];
 $permission = addslashes($permission);
 
 $query = "INSERT INTO rule VALUES('$user_ID', '$board_ID', '$permission') ";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $last_page = $_SERVER["HTTP_REFERER"];
 header("location:$last_page");

@@ -11,8 +11,8 @@ $post_ID = $_GET['post_ID'];
 $post_ID = addslashes($post_ID);
 $user_ID = $_SESSION['user_ID'];
 $query = "SELECT * FROM post WHERE post_ID = '$post_ID'";
-$result = mysql_query($query) or die(mysql_error());
-if ($result = mysql_fetch_array($result))
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+if ($result = mysqli_fetch_array($result))
 {
 	$board_ID = $result['board_ID'];
 	$post_name = $result['post_name'];
@@ -59,8 +59,8 @@ EOT;
 function ShowReplies($post_ID, $user_ID, $permission)
 {
 	$query = "SELECT * FROM post_reply WHERE post_ID = '$post_ID' ORDER BY create_time";
-	$result = mysql_query($query) or die(mysql_error());
-	while ($row = mysql_fetch_array($result))
+	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+	while ($row = mysqli_fetch_array($result))
 	{
 		echo("<h2></h2>\n");
 		PrintReply($row['user_ID'], $row['create_time'], $row['content'], $user_ID, $permission, $row['reply_ID']);

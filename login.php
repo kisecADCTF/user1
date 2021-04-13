@@ -11,8 +11,8 @@ $username = addslashes($username);
 $password = MD5($_POST['password']);
 
 $query = "SELECT * FROM user WHERE (username = '$username' AND password = '$password')";
-$result = mysql_query($query) or die(mysql_error());
-if ($result = mysql_fetch_array($result))
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+if ($result = mysqli_fetch_array($result))
 {
 	session_start();
 	$_SESSION = $result;

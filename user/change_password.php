@@ -13,11 +13,11 @@ $new_password = MD5($_POST['new_password']);
 
 
 $query = "SELECT * FROM user WHERE (user_ID = '$user_ID' AND password = '$old_password')";
-$result = mysql_query($query) or die(mysql_error());
-if ($result = mysql_fetch_array($result))
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+if ($result = mysqli_fetch_array($result))
 {
 	$query = "UPDATE user SET password = '$new_password' WHERE user_ID = '$user_ID'";
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($conn, $query) or die(mysqli_error($conn));
 	$_SESSION['password'] = $new_password;
 	echo <<< EOT
 	<script>

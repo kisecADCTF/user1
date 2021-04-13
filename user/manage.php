@@ -14,7 +14,7 @@ function ShowRules($permission)
 	if ($permission >= PERM_MODERATOR)
 	{
 		$query = "SELECT * FROM rule ORDER BY user_ID, board_ID";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		echo <<< EOT
 		<h1>Rule manage</h1>
 		<table>
@@ -22,7 +22,7 @@ function ShowRules($permission)
 				<td>User ID</td> <td>User name</td> <td>Board ID</td> <td>Board name</td> <td>Permission</td> <td></td>
 			</tr>
 EOT;
-		while ($row = mysql_fetch_array($result))
+		while ($row = mysqli_fetch_array($result))
 		{
 			$user_ID = $row['user_ID'];
 			$username = GetUsername($user_ID);
@@ -47,9 +47,9 @@ function ShowRuleInput($permission)
 		global $perm_options;
 	
 		$query = "SELECT * FROM user ORDER BY user_ID";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$user_options = '';
-		while ($row = mysql_fetch_array($result))
+		while ($row = mysqli_fetch_array($result))
 		{
 			$user_ID = $row['user_ID'];
 			$username = $row['username'];
@@ -57,9 +57,9 @@ function ShowRuleInput($permission)
 		}
 	
 		$query = "SELECT * FROM board ORDER BY board_ID";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$board_options = '';
-		while ($row = mysql_fetch_array($result))
+		while ($row = mysqli_fetch_array($result))
 		{
 			$board_ID = $row['board_ID'];
 			$board_name = $row['board_name'];
@@ -102,9 +102,9 @@ function ShowUsers($permission)
 			</tr>
 EOT;
 		$query = "SELECT * FROM user ORDER BY user_ID";
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$i = 0;
-		while ($row = mysql_fetch_array($result))
+		while ($row = mysqli_fetch_array($result))
 		{
 			$user_ID = $row['user_ID'];
 			$username = $row['username'];
@@ -141,14 +141,14 @@ EOT;
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>tiny bbs - user manage</title>
+		<title>kisec bbs - user manage</title>
 		<link href="/css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<header class="masthead">
 			<div class="container">
 				<div class="masthead-logo">
-					tiny bbs
+                    kisec bbs
 				</div>
 				<nav class="masthead-nav">
 					<a href="/bbs/home.php">Home</a>
@@ -164,7 +164,7 @@ EOT;
 			<?php ShowRuleInput($_SESSION['default_permission']); ?>
 			<?php ShowUsers($_SESSION['default_permission']); ?>			
 			<footer class="footer">
-				Designed by Kiddo Zhu
+				Designed by Kisec
 			</footer>
 		</div>
 	</body>

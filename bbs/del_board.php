@@ -11,19 +11,19 @@ $board_ID = $_GET['board_ID'];
 $board_ID = addslashes($board_ID);
 
 $query = "SELECT post_ID FROM post WHERE board_ID = '$board_ID'";
-$result = mysql_query($query) or die(mysql_error());
-while ($row = mysql_fetch_array($result))
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+while ($row = mysqli_fetch_array($result))
 {
 	$post_ID = $row['post_ID'];
 	$query = "DELETE FROM post_reply WHERE post_ID = '$post_ID'";
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($conn, $query) or die(mysqli_error($conn));
 }
 
 $query = "DELETE FROM post WHERE board_ID = '$board_ID'";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $query = "DELETE FROM board WHERE board_ID = '$board_ID'";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $last_page = $_SERVER["HTTP_REFERER"];
 header("location:$last_page");

@@ -22,9 +22,9 @@ $now = date('Y-m-d H:i:s', time());
 $query = "INSERT INTO post(user_ID, board_ID, post_name, create_time, content) ";
 $query .= "VALUES ('$user_ID', '$board_ID', '$post_name', '$now', '$content')";
 
-mysql_query($query) or die(mysql_error());
-$result = mysql_query('SELECT last_insert_id()');
-$post_ID = mysql_fetch_array($result)['last_insert_id()'];
+mysqli_query($conn, $query) or die(mysqli_error($conn));
+$result = mysqli_query($conn, 'SELECT last_insert_id()');
+$post_ID = mysqli_fetch_array($result)['last_insert_id()'];
 
 header("location:post.php?post_ID=$post_ID");
 ?>

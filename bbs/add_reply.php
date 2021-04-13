@@ -20,10 +20,10 @@ $content = addslashes($content);
 $now = date('Y-m-d H:i:s', time());
 $query = "INSERT INTO post_reply(user_ID, post_ID, create_time, content) ";
 $query .= "VALUES ('$user_ID', '$post_ID', '$now', '$content')";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $query = "UPDATE post SET last_update = '$now' WHERE post_ID = '$post_ID'";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 header("location:post.php?post_ID=$post_ID");
 ?>

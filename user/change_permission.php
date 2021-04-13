@@ -17,7 +17,7 @@ if (!$permission)
 	exit('Illegal call to this page.');	
 
 $query = "UPDATE user SET default_permission = '$permission' WHERE user_ID = '$user_ID'";
-mysql_query($query) or die(mysql_error());
+mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 $last_page = $_SERVER["HTTP_REFERER"];
 header("location:$last_page");
