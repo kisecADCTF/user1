@@ -6,6 +6,7 @@ include('../utils/general.php');
 
 function ShowBoards($permission)
 {
+    include('../utils/connect.php');
     $query = 'SELECT * FROM board ORDER BY board_ID';
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $i = 0;
