@@ -15,5 +15,5 @@ $query = "INSERT INTO board(board_name) VALUES ('$board_name')";
 
 mysqli_query($conn, $query) or die(mysqli_error($conn));
 $last_page = $_SERVER["HTTP_REFERER"];
-header("location:$last_page");
+header("location:home.php");
 ?>

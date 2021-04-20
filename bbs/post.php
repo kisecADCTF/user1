@@ -19,6 +19,8 @@ if ($result = mysqli_fetch_array($result))
 	$content = $result['content'];
 	$create_time = $result['create_time'];
 	$post_user_ID = $result['user_ID'];
+	$file_name = $result['upload_file'];
+
 }
 else
 	exit("No board found for PID=$post_ID.");
@@ -30,8 +32,10 @@ function PrintReply($author_ID, $create_time, $content, $user_ID, $permission, $
 	static $count = 0;
 	
 	$author_name = GetUsername($author_ID);
+	$prefix = '';
+	$control = '';
 	if ($count == 0)
-		$id = "Host &nbsp;";
+		$id = "Writer:";
 	else if ($count == 1)
 		$id = "$count<sup>st</sup> floor &nbsp;";
 	else if ($count == 2)
@@ -46,9 +50,10 @@ function PrintReply($author_ID, $create_time, $content, $user_ID, $permission, $
 		$control = "<button style=\"float:right\" class=\"btn btn-sm btn-danger\" onClick=\"ConfirmDelete($reply_ID)\">Delete</button>";
 	echo <<< EOT
 	<p class="lead">
-		$id $prefix$author_name &nbsp;&nbsp;&nbsp;&nbsp; $create_time
+		<h3>$id $prefix$author_name &nbsp;&nbsp;&nbsp;Time: $create_time</h3> 
 		$control
 	</p>
+	<h3>Content</h3>
 	<p>
 		$content
 	</p>
@@ -58,6 +63,7 @@ EOT;
 
 function ShowReplies($post_ID, $user_ID, $permission)
 {
+    include('../utils/connect.php');
 	$query = "SELECT * FROM post_reply WHERE post_ID = '$post_ID' ORDER BY create_time";
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 	while ($row = mysqli_fetch_array($result))
@@ -87,20 +93,20 @@ EOT;
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>tiny bbs - <?php echo($post_name); ?></title>
-		<link href="/css/style.css" rel="stylesheet" />
+		<title>kisec bbs - <?php echo($post_name); ?></title>
+		<link href="../css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<header class="masthead">
 			<div class="container">
 				<div class="masthead-logo">
-					tiny bbs
+					kisec bbs
 				</div>
 				<nav class="masthead-nav">
-					<a href="/bbs/home.php">Home</a>
+					<a href="home.php">Home</a>
 					<?php ShowUserManagement($_SESSION['default_permission']); ?>
-					<a href="/user/user_info.php"><?php ShowUser(); ?></a>
-					<a href="/logout.php">Log out</a>
+					<a href="../user/user_info.php"><?php ShowUser(); ?></a>
+					<a href="../logout.php">Log out</a>
 				</nav>
 			</div>
 		</header>
@@ -108,10 +114,11 @@ EOT;
 		<div class="container markdown-body">
 			<h1 class="page-title"><?php echo($post_name); ?></h1>
 			<?php PrintReply($post_user_ID, $create_time, $content, $user_ID, $permission); ?>
+            <?php if(!empty($file_name)) echo "<h2>Download file</h2><a href='file_download.php?upload_file=$file_name'>$file_name</a>";?>
 			<?php ShowReplies($post_ID, $user_ID, $permission); ?>
 			<?php ShowReplyInput($post_ID, $permission); ?>
 			<footer class="footer">
-				Designed by Kiddo Zhu
+				Designed by Kisec
 			</footer>
 		</div>
 	</body>

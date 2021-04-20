@@ -10,19 +10,24 @@ if (!isset($_GET['board_ID']))
 $board_ID = $_GET['board_ID'];
 $board_ID = addslashes($board_ID);
 $user_ID = $_SESSION['user_ID'];
+
 $permission = GetPermission($user_ID, $board_ID);
 
 $query = "SELECT board_name FROM board WHERE board_ID = $board_ID";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
 if ($result = mysqli_fetch_array($result))
     $board_name = $result['board_name'];
 else
     exit("No board found for BID=$board_ID.");
 
+
 function ShowPosts($board_ID, $user_ID, $permission)
 {
+    include('../utils/connect.php');
     $query = "SELECT * FROM post WHERE board_ID = '$board_ID' ORDER BY last_update DESC";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $control = '';
     while ($row = mysqli_fetch_array($result))
     {
         $post_ID = $row['post_ID'];
@@ -42,20 +47,20 @@ EOT;
 
 function ShowPostInput($board_ID, $permission)
 {
+    include('../utils/connect.php');
+    $query = "SELECT board_name FROM board WHERE board_ID = $board_ID";
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    if ($result = mysqli_fetch_array($result))
+        $board_name = $result['board_name'];
+    else
+        exit("No board found for BID=$board_ID.");
+
     if ($permission >= PERM_USER)
         echo <<< EOT
-		<h2>New post</h2>
-		<form method="post" action="add_post.php" onSubmit="return InputCheck()">
-			<input type="hidden" name="board_ID" value=$board_ID/>
-			<p>
-				<label for="title">Title :</label>
-				<input class="form-control input-block" type="text" id="title" name="title" />
-			</p>
-			<p>
-				<label for="content">Content :</label>
-				<textarea class="form-control input-block" id="content" name="content" rows=6></textarea>
-			</p>
-			<input class="btn btn-primary" type="submit" name="submit" value="Post!">
+		<form method="GET" action="add_post_view.php" >
+		    <input type="hidden" name="board_name" value=$board_name>
+		    <input type="hidden" name="board_ID" value=$board_ID> 
+			<input class="btn btn-primary" type="submit" name="submit" value="New Post" />
 		</form>
 EOT;
 }
@@ -66,7 +71,7 @@ EOT;
 <html>
 <head>
     <title>kisec bbs - board</title>
-    <link href="/css/style.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
 </head>
 <body>
 <header class="masthead">
@@ -75,16 +80,16 @@ EOT;
             kisec bbs
         </div>
         <nav class="masthead-nav">
-            <a href="/bbs/home.php">Home</a>
+            <a href="../bbs/home.php">Home</a>
             <?php ShowUserManagement($_SESSION['default_permission']); ?>
-            <a href="/user/user_info.php"><?php ShowUser(); ?></a>
-            <a href="/logout.php">Log out</a>
+            <a href="../user/user_info.php"><?php ShowUser(); ?></a>
+            <a href="../logout.php">Log out</a>
         </nav>
     </div>
 </header>
 
 <div class="container markdown-body">
-    <h1 class="page-title"><?php echo($board_name); ?></h1>
+    <h1 class="page-title">Board - <?php echo($board_name); ?></h1>
     <?php ShowPosts($board_ID, $user_ID, $permission); ?>
     <?php ShowPostInput($board_ID, $permission); ?>
     <footer class="footer">

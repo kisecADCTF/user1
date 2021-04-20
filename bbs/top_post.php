@@ -4,54 +4,6 @@ include('../utils/constants.php');
 include('../utils/connect.php');
 include('../utils/general.php');
 
-function ShowBoards($permission)
-{
-    include('../utils/connect.php');
-    $query = 'SELECT * FROM board ORDER BY board_ID';
-    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    $i = 0;
-    while ($row = mysqli_fetch_array($result))
-    {
-        $i++;
-        $board_ID = $row['board_ID'];
-        $board_name = $row['board_name'];
-        $board_link = "<a href='board.php?board_ID=$board_ID'>$board_name</a>";
-        $control = '';
-        if ($permission >= PERM_ADMINISTRATOR)
-            $control = "<button style=\"float:right\" class=\"btn btn-sm btn-danger\" onClick=\"ConfirmDelete($board_ID, '$board_name')\">Delete</button>";
-        echo <<< EOT
-		<p><h4>
-				$i. $board_link
-				$control
-		</h4></p>	
-EOT;
-    }
-
-    if ($permission >= PERM_ADMINISTRATOR)
-        echo <<< EOT
-		
-		<script>
-		function ConfirmDelete(board_ID, board_name)
-		{
-			if (confirm("Do you really want to delete board '" + board_name + "'?"))
-				window.location.href = "del_board.php?board_ID=" + board_ID;
-		}
-		
-		function InputCheck()
-		{
-			board_name = document.getElementById("board_name");
-			if (!board_name.value)
-			{
-				alert("Board name should not be empty.");
-				board_name.focus();
-				return false;
-			}
-			return true;
-		}
-		</script>
-EOT;
-}
-
 function ShowTop10($permission)
 {
     include('../utils/connect.php');
@@ -97,8 +49,8 @@ EOT;
 </header>
 
 <div class="container markdown-body">
-    <h1 class="page-title">Boards</h1>
-    <?php ShowBoards($_SESSION['default_permission']); ?>
+    <h2>Top 10 Posts</h2>
+    <?php ShowTop10($_SESSION['default_permission']); ?>
     <footer class="footer">
         Designed by Kisec
     </footer>
