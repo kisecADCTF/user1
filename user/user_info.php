@@ -14,8 +14,8 @@ $registration_time = $_SESSION['registration_time'];
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>tiny bbs - <?php echo($username); ?></title>
-		<link href="/css/style.css" rel="stylesheet" />
+		<title>kisec bbs - <?php echo($username); ?></title>
+		<link href="../css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<header class="masthead">
@@ -24,10 +24,11 @@ $registration_time = $_SESSION['registration_time'];
 					tiny bbs
 				</div>
 				<nav class="masthead-nav">
-					<a href="/bbs/home.php">Home</a>
+					<a href="../bbs/home.php">Home</a>
+                    <a href="../bbs/top_post.php">Top 10 Post</a>
 					<?php ShowUserManagement($_SESSION['default_permission']); ?>
-					<a href="/user/user_info.php"><?php ShowUser(); ?></a>
-					<a href="/logout.php">Log out</a>
+					<a href="user_info.php"><?php ShowUser(); ?></a>
+					<a href="../logout.php">Log out</a>
 				</nav>
 			</div>
 		</header>
@@ -57,7 +58,7 @@ $registration_time = $_SESSION['registration_time'];
 				<input class="btn" type="submit" name="submit" value="Change" />
 			</form>
 			<footer class="footer">
-				Designed by Kiddo Zhu
+				Designed by Kisec
 			</footer>
 		</div>
 	</body>

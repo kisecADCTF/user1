@@ -16,7 +16,7 @@ if ($result = mysqli_fetch_array($result))
 {
 	session_start();
 	$_SESSION = $result;
-	header('location:/bbs/home.php');
+	header('location:bbs/home.php');
 }
 else
 	echo <<< EOT

@@ -9,6 +9,7 @@ if ($_SESSION['default_permission'] < PERM_MODERATOR)
 
 function ShowRules($permission)
 {
+    include('../utils/connect.php');
 	global $perm_text;
 	
 	if ($permission >= PERM_MODERATOR)
@@ -41,7 +42,8 @@ EOT;
 }
 
 function ShowRuleInput($permission)
-{	
+{
+    include('../utils/connect.php');
 	if ($permission >= PERM_MODERATOR)
 	{
 		global $perm_options;
@@ -89,6 +91,7 @@ EOT;
 
 function ShowUsers($permission)
 {
+    include('../utils/connect.php');
 	global $perm_text;
 
 	if ($permission >= PERM_ADMINISTRATOR)
@@ -102,7 +105,7 @@ function ShowUsers($permission)
 			</tr>
 EOT;
 		$query = "SELECT * FROM user ORDER BY user_ID";
-		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$i = 0;
 		while ($row = mysqli_fetch_array($result))
 		{
@@ -142,7 +145,7 @@ EOT;
 <html>
 	<head>
 		<title>kisec bbs - user manage</title>
-		<link href="/css/style.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<header class="masthead">
@@ -151,15 +154,21 @@ EOT;
                     kisec bbs
 				</div>
 				<nav class="masthead-nav">
-					<a href="/bbs/home.php">Home</a>
+					<a href="../bbs/home.php">Home</a>
+                    <a href="../bbs/top_post.php">Top 10 Post</a>
 					<?php ShowUserManagement($_SESSION['default_permission']); ?>
-					<a href="/user/user_info.php"><?php ShowUser(); ?></a>
-					<a href="/logout.php">Log out</a>
+					<a href="user_info.php"><?php ShowUser(); ?></a>
+					<a href="../logout.php">Log out</a>
 				</nav>
 			</div>
 		</header>
-		
 		<div class="container markdown-body">
+            <h1 class="page-title">Create a new board</h1>
+            <form method="post" action="../bbs/add_board.php" onSubmit="return InputCheck()">
+                <label for="board_name">Board name :</label>
+                <input class="form-control" id="board_name", name="board_name" type="text" />
+                <input class="btn" type="submit" name="submit" value="Create" />
+            </form>
 			<?php ShowRules($_SESSION['default_permission']); ?>
 			<?php ShowRuleInput($_SESSION['default_permission']); ?>
 			<?php ShowUsers($_SESSION['default_permission']); ?>			

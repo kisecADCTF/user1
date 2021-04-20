@@ -3,11 +3,11 @@
 include("utils/constants.php");
 
 $options = '';
-for ($i = 1; $i < count($perm_text); $i++)
+/*for ($i = 1; $i < count($perm_text); $i++)
     if ($i == 2)
         $options .= "<option value=$i selected=\"selected\">${perm_text[$i]}</option>\n";
     else
-        $options .= "<option value=$i>${perm_text[$i]}</option>\n";
+        $options .= "<option value=$i>${perm_text[$i]}</option>\n";*/
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ for ($i = 1; $i < count($perm_text); $i++)
 <meta charset="utf8">
 <head>
     <title>kisec bbs - register</title>
-    <link href="/css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
 </head>
 <body onLoad="PermissionText(document.getElementById('permission'))">
 <header class="masthead">
@@ -24,7 +24,7 @@ for ($i = 1; $i < count($perm_text); $i++)
             kisec bbs
         </div>
         <nav class="masthead-nav">
-            <a href="/index.html">Back</a>
+            <a href="index.html">Back</a>
         </nav>
     </div>
 </header>
@@ -46,15 +46,16 @@ for ($i = 1; $i < count($perm_text); $i++)
         </p>
         <p>
             <label for="permission">Default permission :</label>
-            <select class="form-control" id="permission" name="permission" autoComplete="off" onChange="PermissionText(this)">
-                <?php echo($options); ?>
+            <select class="form-control" id="permission" name="permission" autoComplete="off" onChange="PermissionText(this)" >
+                <?php /*echo($options); */?>
+                <option value=2 selected=\"selected\">user</option>
             </select>
         </p>
         <p><div id="describe"></div></p>
         <input class="btn" type="submit" name="submit" value="Register" />
     </form>
     <footer class="footer">
-        Designed by Kiddo Zhu
+        Designed by Kisec
     </footer>
 </div>
 </body>
@@ -94,8 +95,8 @@ for ($i = 1; $i < count($perm_text); $i++)
     function PermissionText(select)
     {
         perm2text = new Array();
-        perm2text[0] = "A tourist can only read posts.";
-        perm2text[1] = "A user can read, create posts, but cannot delete posts of others.";
+        //perm2text[0] = "A tourist can only read posts.";
+        perm2text[0] = "A user can read, create posts, but cannot delete posts of others.";
         perm2text[2] = "A moderator can read, create and delete posts.";
         perm2text[3] = "An administrator can read, create and delete posts. \
 					An administrator can also manage the status of others.";

@@ -20,6 +20,7 @@ if ($_GET['confirm'] == 'true') {
         password VARCHAR(32) NOT NULL,
         default_permission TINYINT NOT NULL,
         registration_time DATETIME NOT NULL,
+        money INT default NULL,
         
         UNIQUE(username),
         PRIMARY KEY (user_ID),
@@ -54,6 +55,8 @@ if ($_GET['confirm'] == 'true') {
         create_time DATETIME NOT NULL,
         last_update DATETIME NOT NULL,
         content TEXT NOT NULL,
+        upload_file TEXT default NULL,
+        secret boolean default NULL,
         
         PRIMARY KEY (post_ID),
         FOREIGN KEY (user_ID) REFERENCES user(user_ID),
@@ -76,10 +79,16 @@ if ($_GET['confirm'] == 'true') {
         mysqli_query($conn, "CREATE VIEW top_cache (post_ID, reply_count) AS
     SELECT post_ID, count(*) FROM post_reply GROUP BY post_ID LIMIT 10")
         or die(mysqli_error($conn));
+
+        $now = date('Y-m-d H:i:s', time());
+        $query = "INSERT INTO user ";
+        $query .= "VALUES(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 4, '$now')";
+        mysqli_query($conn, $query) or die(mysqli_error($conn));
 }
 ?>
 
 <!DOCTYPE html>
 <script>
     alert("Database has been reset.");
+    window.location.href = "index.html"
 </script>
