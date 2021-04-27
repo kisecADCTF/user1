@@ -82,7 +82,7 @@ if ($_GET['confirm'] == 'true') {
 
         $now = date('Y-m-d H:i:s', time());
         $query = "INSERT INTO user ";
-        $query .= "VALUES(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 4, '$now')";
+        $query .= "VALUES(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 4, '$now', 1000000)";
         mysqli_query($conn, $query) or die(mysqli_error($conn));
 }
 ?>
