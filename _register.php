@@ -14,8 +14,8 @@ $permission = addslashes($permission);
 
 
 $now = date('Y-m-d H:i:s', time());
-$query = "INSERT INTO user(username, password, default_permission, registration_time) ";
-$query .= "VALUES('$username', '$password', '$permission', '$now')";
+$query = "INSERT INTO user(username, password, default_permission, registration_time, money) ";
+$query .= "VALUES('$username', '$password', '$permission', '$now', 10000)";
 
 mysqli_query($conn, $query) or die(mysqli_error($conn));
 ?>
