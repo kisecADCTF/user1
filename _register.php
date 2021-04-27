@@ -12,7 +12,6 @@ $password = MD5($_POST['password']);
 $permission = $_POST['permission'];
 $permission = addslashes($permission);
 
-
 $now = date('Y-m-d H:i:s', time());
 $query = "INSERT INTO user(username, password, default_permission, registration_time, money) ";
 $query .= "VALUES('$username', '$password', '$permission', '$now', 10000)";
