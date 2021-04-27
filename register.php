@@ -1,6 +1,4 @@
 <?php
-
-
 include("utils/constants.php");
 
 $options = '';
