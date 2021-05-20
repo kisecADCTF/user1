@@ -1,6 +1,5 @@
 <?php
 
-
 include('utils/constants.php');
 include('utils/connect.php');
 
