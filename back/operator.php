@@ -32,3 +32,5 @@
     echo ~$num1 ."<br/>";
     echo $num1 >> 1 ."<br/>";
     echo $num1 << 1 ."<br/>";
+
+?>
