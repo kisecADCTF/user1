@@ -1,7 +1,8 @@
 <?php
-
-    echo "GET :" .$_GET['get'] ."<br/>";
-    echo "POST :" .$_POST['post'] ."<br/>";
+    if(isset($_GET['get']))
+        echo "GET :" .$_GET['get'] ."<br/>";
+    if(isset($_POST['post']))
+        echo "POST :" .$_POST['post'] ."<br/>";
 
 ?>
 
@@ -14,11 +15,11 @@
 </head>
 <body>
     <form method="GET" action="">
-        Input: <input type="text" name="get">
+        GET Input: <input type="text" name="get">
         <input type="submit" value="전송">
     </form>
     <form method="POST" action="">
-       Input: <input type="text" name="post">
+       POST Input: <input type="text" name="post">
         <input type="submit" value="전송">
     </form>
 </body>

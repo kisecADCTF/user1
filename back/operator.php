@@ -1,36 +1,9 @@
 <?php
     $num1 = 10;
     $num2 = 3;
+    $Num1 = 20;
+    echo $num1;
+    echo $Num1;
 
-    echo $num1 + $num2 ."<br/>";
-    echo $num1 - $num2 ."<br/>";
-    echo $num1 * $num2 ."<br/>";
-    echo $num1 / $num2 ."<br/>";
-    echo $num1 % $num2 ."<br/>";
-
-    echo "<br/>";
-
-    echo $num1++ ."<br/>";
-    echo ++$num1 + $num2 ."<br/>";
-    echo $num1-- ."<br/>";
-    echo --$num1 ."<br/>";
-
-    echo "<br/>";
-
-    echo $num1 < $num2 ."<br/>";
-    echo $num1 > $num2 ."<br/>";
-    echo $num1 <= $num2 ."<br/>";
-    echo $num1 >= $num2 ."<br/>";
-    echo $num1 == $num2 ."<br/>";
-    echo $num1 != $num2 ."<br/>";
-
-    echo "<br/>";
-
-    echo $num1 & 1 ."<br/>";
-    echo $num1 | 1 ."<br/>";
-    echo $num1 ^ 1 ."<br/>";
-    echo ~$num1 ."<br/>";
-    echo $num1 >> 1 ."<br/>";
-    echo $num1 << 1 ."<br/>";
 
 ?>

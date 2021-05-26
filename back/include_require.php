@@ -3,12 +3,15 @@
     include("./include.php");
     require("./require.php");
 
-    $a = $_GET['a'];
-    $b = $_GET['b'];
-    $c = sum($a, $b);
+    if(isset($_GET['a']) && isset($_GET['b']))
+    {
+        $a = $_GET['a'];
+        $b = $_GET['b'];
+        $c = sum($a, $b);
+    }
 
     echo $str ."'s sum function";
-    if($_GET['submit'] != NULL)
+    if(isset($_GET['submit']))
         printf("<br>%d + %d = %d", $a, $b, $c);
     else
     {
